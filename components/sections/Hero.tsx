@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { 
   Github, Linkedin, ArrowRight, FileText, Sparkles, Code2, Layers, Cpu, MapPin, 
@@ -250,9 +251,9 @@ function HeroCard() {
             <motion.div
               whileHover={{ scale: 1.05, rotate: -4 }}
               transition={{ type: 'spring', stiffness: 300 }}
-              className="w-20 h-20 sm:w-24 sm:h-24 rounded-[1rem] sm:rounded-[1.25rem] bg-zinc-100 dark:bg-zinc-800 shadow-xl shadow-sky-500/30 dark:shadow-violet-500/30 border-2 sm:border-4 border-white dark:border-zinc-900 cursor-default overflow-hidden"
+              className="w-20 h-20 sm:w-24 sm:h-24 relative rounded-[1rem] sm:rounded-[1.25rem] bg-zinc-100 dark:bg-zinc-800 shadow-xl shadow-sky-500/30 dark:shadow-violet-500/30 border-2 sm:border-4 border-white dark:border-zinc-900 cursor-default overflow-hidden"
             >
-              <img src="/me.jpg" alt="Sarah Fajriah Rahmah" className="w-full h-full object-cover" draggable={false} />
+              <Image src="/me.jpg" alt="Sarah Fajriah Rahmah" fill className="object-cover" draggable={false} />
             </motion.div>
           </div>
 
