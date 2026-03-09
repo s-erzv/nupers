@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --surface: #f0f9ff;
+  --muted: #64748b;
+  --border: #bae6fd;
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  --accent-light: #38bdf8;
+  --glow: rgba(14, 165, 233, 0.18);
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --surface: #18181b;
+  --muted: #71717a;
+  --border: #27272a;
+  --accent: #8b5cf6;
+  --accent-hover: #7c3aed;
+  --accent-light: #a78bfa;
+  --glow: rgba(139, 92, 246, 0.18);
+}
+
+* {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, var(--accent), var(--accent-light));
+  }
+
+  .section-padding {
+    @apply py-20 md:py-28 px-4 md:px-6;
+  }
+
+  .container-narrow {
+    @apply mx-auto w-full max-w-5xl px-4 md:px-6;
+  }
+
+  .container-wide {
+    @apply mx-auto w-full max-w-6xl px-4 md:px-6;
+  }
+
+  /* Glassmorphism */
+  .glass-card {
+    @apply bg-white/65 backdrop-blur-md border border-white/50 shadow-lg;
+  }
+  .dark .glass-card {
+    @apply bg-zinc-900/55 border-zinc-700/30;
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 24px var(--glow), 0 0 80px var(--glow);
+  }
+
+  .glow-sm {
+    box-shadow: 0 0 12px var(--glow);
+  }
+
+  .bg-grid {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+      linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+  }
+  .dark .bg-grid {
+    background-image: linear-gradient(to right, #1e293b 1px, transparent 1px),
+      linear-gradient(to bottom, #1e293b 1px, transparent 1px);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-zinc-200 dark:bg-zinc-800 rounded-full;
+  }
+
+  .cyber-grid {
+    background-size: 20px 20px;
+    background-image: radial-gradient(circle, rgba(14, 165, 233, 0.1) 1px, transparent 1px);
+  }
+
+  @keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+
+  .animate-scan {
+    animation: scan 3s linear infinite;
+  }
+}
