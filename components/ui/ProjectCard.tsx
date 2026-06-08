@@ -34,8 +34,8 @@ export function ProjectCard({ thumbnail, title, description, longDescription, fe
             src={thumbnail}
             alt={`Thumbnail of ${title}`}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
             className="object-cover object-top transition-transform duration-700 group-hover:scale-110"
-            unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
             <span className="text-white text-[10px] font-bold uppercase tracking-[0.2em] bg-sky-500/90 backdrop-blur-md px-3 py-1.5 rounded-md shadow-lg shadow-sky-500/20">
@@ -129,8 +129,8 @@ export function ProjectCard({ thumbnail, title, description, longDescription, fe
                   src={thumbnail}
                   alt={`Preview of ${title}`}
                   fill
+                  sizes="(max-width: 768px) 100vw, 45vw"
                   className="object-cover object-top transition-transform duration-1000 group-hover/viewport:scale-105"
-                  unoptimized
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white dark:to-zinc-900 opacity-0 md:opacity-100" />
               </div>

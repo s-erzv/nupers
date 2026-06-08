@@ -2,10 +2,10 @@
 
 import { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import { 
-  Github, Linkedin, ArrowRight, FileText, Sparkles, Code2, Layers, Cpu, MapPin, 
-  ExternalLink, ShoppingCart, Globe, Zap, Box, Database 
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import {
+  Github, Linkedin, ArrowRight, FileText, Sparkles, Code2, Layers, Cpu, MapPin,
+  ExternalLink, Globe, Zap, Box, Database
 } from 'lucide-react';
 import { OrbitRing } from '@/components/ui/OrbitRing';
 
@@ -123,48 +123,10 @@ function TypingText({ words }: { words: string[] }) {
   );
 }
 
-function FloatingProject() {
-  const [visible, setVisible] = useState(false);
-  
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 1800);
-    return () => clearTimeout(t);
-  }, []);
-
-  return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-          className="absolute -bottom-6 -right-4 sm:-bottom-8 sm:-right-8 lg:-right-10 w-[200px] sm:w-[260px] rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200/60 dark:border-zinc-700/50 shadow-2xl shadow-sky-500/10 dark:shadow-black/40 p-3 sm:p-4 z-30"
-        >
-          <div className="flex items-center gap-2 mb-2 sm:mb-3">
-            <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-emerald-500" />
-            </span>
-            <p className="text-[8px] sm:text-[10px] font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Currently Building</p>
-          </div>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-50 to-sky-100 dark:from-blue-900/40 dark:to-violet-900/40 border border-sky-100 dark:border-violet-800/50 flex items-center justify-center shadow-inner">
-              <ShoppingCart size={16} className="text-sky-600 dark:text-violet-300 sm:w-[20px]" />
-            </div>
-            <div>
-              <p className="text-xs sm:text-sm font-black text-zinc-900 dark:text-zinc-100 leading-tight">Marketplace</p>
-              <p className="text-[9px] sm:text-[11px] font-medium text-zinc-500 dark:text-zinc-400 mt-0.5">E-commerce Platform</p>
-            </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
 
 const stats = [
-  { label: 'Projects', value: 12, suffix: '+', icon: Layers },
-  { label: 'Tech Stack', value: 23, suffix: '+', icon: Cpu },
+  { label: 'Projects', value: 15, suffix: '+', icon: Layers },
+  { label: 'Tech Stack', value: 25, suffix: '+', icon: Cpu },
   { label: 'Years Exp.', value: 3, suffix: '+', icon: Sparkles },
 ];
 
@@ -172,7 +134,7 @@ const badges = [
   { label: 'Next.js', cls: 'bg-zinc-900 text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900' },
   { label: 'React', cls: 'bg-sky-100 text-sky-700 dark:bg-sky-900/60 dark:text-sky-300' },
   { label: 'Solidity', cls: 'bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300' },
-  { label: 'Tailwind', cls: 'bg-teal-100 text-teal-700 dark:bg-teal-900/60 dark:text-teal-300' },
+  { label: 'Supabase', cls: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300' },
 ];
 
 function HeroCard() {
@@ -202,13 +164,6 @@ function HeroCard() {
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         className="absolute inset-[-10px] sm:inset-[-20px] rounded-[2rem] sm:rounded-[2.5rem] bg-sky-300/30 dark:bg-violet-600/20 blur-2xl sm:blur-3xl -z-10"
       />
-
-      {/* Background Orbit Ring */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <div className="relative w-full h-full max-w-[900px] aspect-square scale-[0.8] sm:scale-100 lg:scale-[1.1] opacity-90">
-          <OrbitRing />
-        </div>
-      </div>
 
       <motion.div
         ref={cardRef}
@@ -313,7 +268,7 @@ function HeroCard() {
               transition={{ delay: 1.65 }}
               className="px-2 py-1 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 shadow-sm cursor-default"
             >
-              +19
+              +21
             </motion.span>
           </div>
         </div>
@@ -335,10 +290,8 @@ function HeroCard() {
         />
       </motion.div>
 
-      <FloatingProject />
-
-      <motion.div animate={{ rotate: 360 }} transition={{ duration: 22, repeat: Infinity, ease: 'linear' }} className="absolute -top-4 -right-4 sm:-top-8 sm:-right-8 w-10 h-10 sm:w-16 sm:h-16 rounded-full border border-sky-300/30 dark:border-violet-400/20 border-dashed pointer-events-none" />
-      <motion.div animate={{ rotate: -360 }} transition={{ duration: 17, repeat: Infinity, ease: 'linear' }} className="absolute -bottom-4 -left-4 sm:-bottom-6 -left-6 w-12 h-12 sm:w-20 sm:h-20 rounded-full border border-sky-200/30 dark:border-violet-500/20 border-dashed pointer-events-none" />
+      <div className="absolute -top-4 -right-4 sm:-top-8 sm:-right-8 w-10 h-10 sm:w-16 sm:h-16 rounded-full border border-sky-300/30 dark:border-violet-400/20 border-dashed pointer-events-none" style={{ animation: 'orbit-cw 22s linear infinite' }} />
+      <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 w-12 h-12 sm:w-20 sm:h-20 rounded-full border border-sky-200/30 dark:border-violet-500/20 border-dashed pointer-events-none" style={{ animation: 'orbit-cw 17s linear reverse infinite' }} />
     </motion.div>
   );
 }
@@ -348,6 +301,18 @@ const socials = [
   { href: 'https://www.linkedin.com/in/serzv', label: 'LinkedIn', type: 'linkedin' },
   { href: 'https://x.com/nupers_sv', label: 'X', type: 'x' },
 ];
+
+// Pre-computed so Math.random() doesn't run on every render
+const FLOATERS = [
+  { iconIdx: 0, y: -52, x: -8,  dur: 7.2, delay: 0.0, left: 12, top: 18, size: 22 },
+  { iconIdx: 1, y: -38, x: 11,  dur: 9.5, delay: 1.2, left: 28, top: 62, size: 28 },
+  { iconIdx: 2, y: -44, x: -14, dur: 6.8, delay: 2.5, left: 55, top: 25, size: 20 },
+  { iconIdx: 3, y: -60, x: 7,   dur: 8.1, delay: 0.7, left: 72, top: 78, size: 32 },
+  { iconIdx: 4, y: -35, x: -10, dur: 7.6, delay: 3.1, left: 85, top: 40, size: 24 },
+  { iconIdx: 5, y: -48, x: 13,  dur: 9.0, delay: 1.8, left: 40, top: 85, size: 26 },
+  { iconIdx: 6, y: -42, x: -6,  dur: 6.3, delay: 4.0, left: 8,  top: 72, size: 20 },
+  { iconIdx: 7, y: -55, x: 9,   dur: 8.7, delay: 2.3, left: 63, top: 15, size: 30 },
+] as const;
 
 export default function Hero() {
   const scrollToProjects = (e: React.MouseEvent) => {
@@ -368,40 +333,29 @@ export default function Hero() {
         <div className="absolute inset-0 dark:hidden" style={{ backgroundImage: 'linear-gradient(rgba(14,165,233,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.06) 1px, transparent 1px)', backgroundSize: '56px 56px' }} />
         <div className="absolute inset-0 hidden dark:block" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
 
-        <motion.div animate={{ scale: [1, 1.12, 1], opacity: [0.35, 0.6, 0.35] }} transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }} className="absolute -top-32 -right-32 w-[700px] h-[700px] rounded-full blur-3xl bg-gradient-to-br from-sky-300/35 via-blue-300/20 to-transparent dark:from-violet-600/15 dark:via-purple-500/10 dark:to-transparent" />
-        <motion.div animate={{ scale: [1, 1.18, 1], opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 13, repeat: Infinity, ease: 'easeInOut', delay: 2 }} className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full blur-3xl bg-gradient-to-br from-blue-200/30 via-cyan-200/15 to-transparent dark:from-fuchsia-600/10 dark:via-violet-500/8 dark:to-transparent" />
-        <motion.div animate={{ x: [0, 30, 0], y: [0, -20, 0], opacity: [0.15, 0.3, 0.15] }} transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut', delay: 4 }} className="absolute top-1/3 left-1/3 w-80 h-80 rounded-full blur-3xl bg-sky-200/20 dark:bg-violet-400/5" />
+        <div className="absolute -top-32 -right-32 w-[700px] h-[700px] rounded-full blur-3xl bg-gradient-to-br from-sky-300/35 via-blue-300/20 to-transparent dark:from-violet-600/15 dark:via-purple-500/10 dark:to-transparent blob-pulse-a" />
+        <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full blur-3xl bg-gradient-to-br from-blue-200/30 via-cyan-200/15 to-transparent dark:from-fuchsia-600/10 dark:via-violet-500/8 dark:to-transparent blob-pulse-b" />
+        <div className="absolute top-1/3 left-1/3 w-80 h-80 rounded-full blur-3xl bg-sky-200/20 dark:bg-violet-400/5 blob-pulse-c" />
         <div className="absolute inset-0 dark:hidden" style={{ background: 'radial-gradient(ellipse at 50% 0%, transparent 60%, rgba(241,245,249,0.4) 100%)' }} />
       </div>
 
-      {[...Array(12)].map((_, i) => {
-        const Icons = [Code2, Cpu, Zap, Box, Layers, Sparkles, Globe, Database];
-        const Icon = Icons[i % Icons.length];
-        return (
-          <motion.div
-            key={i}
-            className="absolute pointer-events-none text-sky-500/20 dark:text-violet-400/15 -z-10"
-            animate={{ 
-              y: [0, Math.random() * -40 - 20, 0], 
-              x: [0, (Math.random() - 0.5) * 30, 0],
-              rotate: [0, 10, -10, 0],
-              opacity: [0.1, 0.4, 0.1] 
-            }}
-            transition={{ 
-              duration: 5 + Math.random() * 5, 
-              repeat: Infinity, 
-              delay: Math.random() * 5, 
-              ease: 'easeInOut' 
-            }}
-            style={{ 
-              left: `${Math.random() * 90 + 5}%`, 
-              top: `${Math.random() * 80 + 10}%`,
-            }}
-          >
-            <Icon size={20 + Math.random() * 20} />
-          </motion.div>
-        );
-      })}
+      {(() => {
+        const Icons = [Code2, Cpu, Zap, Box, Layers, Sparkles, Globe, Database] as const;
+        return FLOATERS.map((f, i) => {
+          const Icon = Icons[f.iconIdx];
+          return (
+            <motion.div
+              key={i}
+              className="absolute pointer-events-none text-sky-500/20 dark:text-violet-400/15 -z-10"
+              animate={{ y: [0, f.y, 0], x: [0, f.x, 0], rotate: [0, 10, -10, 0], opacity: [0.1, 0.4, 0.1] }}
+              transition={{ duration: f.dur, repeat: Infinity, delay: f.delay, ease: 'easeInOut' }}
+              style={{ left: `${f.left}%`, top: `${f.top}%` }}
+            >
+              <Icon size={f.size} />
+            </motion.div>
+          );
+        });
+      })()}
 
       <div className="container-wide relative z-10 w-full max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-24">
@@ -451,7 +405,7 @@ export default function Hero() {
                 <motion.span className="inline-flex" animate={{ x: [0, 3, 0] }} transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}><ArrowRight size={16} className="sm:w-[18px]" /></motion.span>
               </MagneticButton>
 
-              <MagneticButton href="https://drive.google.com/drive/folders/1lKkt4fRMQ9PaI_VLTmF73VgHwRRgolf0?usp=sharing" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl border border-sky-200 dark:border-zinc-700 bg-white/80 dark:bg-transparent backdrop-blur-sm text-sky-700 dark:text-zinc-300 text-sm sm:text-base font-bold hover:bg-sky-50 dark:hover:bg-zinc-800/80 hover:border-sky-400 dark:hover:border-zinc-600 transition-all duration-200 active:scale-[0.97] shadow-sm hover:shadow-md">
+              <MagneticButton href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl border border-sky-200 dark:border-zinc-700 bg-white/80 dark:bg-transparent backdrop-blur-sm text-sky-700 dark:text-zinc-300 text-sm sm:text-base font-bold hover:bg-sky-50 dark:hover:bg-zinc-800/80 hover:border-sky-400 dark:hover:border-zinc-600 transition-all duration-200 active:scale-[0.97] shadow-sm hover:shadow-md">
                 <FileText size={16} className="sm:w-[18px]" /> View Resume
               </MagneticButton>
             </motion.div>

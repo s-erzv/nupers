@@ -121,3 +121,36 @@ body {
     animation: scan 3s linear infinite;
   }
 }
+
+/* GPU-composited animations — runs on compositor thread */
+@keyframes orbit-cw {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orbit-icon-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 0.8; }
+}
+
+.orbit-icon-pulse {
+  animation: orbit-icon-pulse 4s ease-in-out infinite;
+}
+
+/* Background blob pulses — opacity/scale only, stays on compositor */
+@keyframes blob-a {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%       { opacity: 0.6;  transform: scale(1.12); }
+}
+@keyframes blob-b {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(1.18); }
+}
+@keyframes blob-c {
+  0%, 100% { opacity: 0.15; transform: translate(0, 0); }
+  50%       { opacity: 0.3;  transform: translate(30px, -20px); }
+}
+
+.blob-pulse-a { animation: blob-a 9s ease-in-out infinite; }
+.blob-pulse-b { animation: blob-b 13s ease-in-out 2s infinite; }
+.blob-pulse-c { animation: blob-c 16s ease-in-out 4s infinite; }
