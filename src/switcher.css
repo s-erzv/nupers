@@ -1,0 +1,135 @@
+/* Scoped with wk- and explicit values so every theme's own CSS leaves it alone. */
+.wk {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2147483000;
+  font: 500 13px/1.3 ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: #17171b;
+  letter-spacing: 0;
+  text-align: left;
+}
+.wk *,
+.wk *::before,
+.wk *::after {
+  box-sizing: border-box;
+}
+.wk-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 7px 12px 7px 7px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #17171b;
+  font: inherit;
+  cursor: pointer;
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.2s;
+}
+.wk-pill:hover {
+  transform: translateY(-1px);
+}
+.wk-pill b {
+  font-weight: 700;
+}
+.wk-pill:focus-visible,
+.wk-item:focus-visible {
+  outline: 2px solid #5b63f5;
+  outline-offset: 2px;
+}
+.wk-caret {
+  color: #6c6c77;
+  width: 10px;
+  text-align: center;
+}
+.wk-sw {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+.wk-panel {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  width: min(300px, calc(100vw - 32px));
+  padding: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.45);
+  animation: wk-in 0.18s ease-out;
+}
+@keyframes wk-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.wk-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 14px;
+}
+.wk-sub {
+  margin: 2px 0 10px;
+  color: #6c6c77;
+}
+.wk-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+.wk-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px;
+  border-radius: 10px;
+  color: #17171b;
+  text-decoration: none;
+}
+.wk-item:hover {
+  background: #f2f2f5;
+}
+.wk-item[aria-current='page'] {
+  background: #eceefe;
+}
+.wk-text {
+  display: flex;
+  flex-direction: column;
+}
+.wk-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+.wk-day {
+  color: #6c6c77;
+  font-size: 12px;
+}
+.wk-today {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #17171b;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+}
+.wk-loading {
+  min-height: 100vh;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wk-panel {
+    animation: none;
+  }
+}

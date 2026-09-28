@@ -1,0 +1,152 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root {
+  --bg: #f6f6f4;
+  --panel: #ffffff;
+  --ink: #17171b;
+  --muted: #6c6c77;
+  --faint: #a1a1aa;
+  --line: #e3e3e6;
+  --hatch: #e6e6e9;
+  --accent: #5b63f5;
+  --accent-soft: #eceefe;
+  --lime: #6fa92f;
+  --lime-soft: #eaf5dc;
+  --amber: #f0a02e;
+  --heat-0: #ececef;
+  --heat-1: #c9ccfb;
+  --heat-2: #9aa1fa;
+  --heat-3: #6d75f6;
+  --heat-4: #454ee0;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #0d0d10;
+  --panel: #131317;
+  --ink: #ededf0;
+  --muted: #8d8d98;
+  --faint: #5c5c66;
+  --line: #25252b;
+  --hatch: #1f1f25;
+  --accent: #9ea8ff;
+  --accent-soft: #1d1f3a;
+  --lime: #c8ec8e;
+  --lime-soft: #1f2a14;
+  --amber: #ffc56b;
+  --heat-0: #1b1b21;
+  --heat-1: #2a2e63;
+  --heat-2: #434ab0;
+  --heat-3: #6d76ea;
+  --heat-4: #a3abff;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-lime: var(--lime);
+  --color-lime-soft: var(--lime-soft);
+  --color-amber: var(--amber);
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-hand: 'Caveat', cursive;
+}
+
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--panel);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* full-bleed hairlines that run past the column, notebook style */
+.rule-t,
+.rule-b {
+  position: relative;
+}
+.rule-t::before,
+.rule-b::after {
+  content: '';
+  position: absolute;
+  left: -100vw;
+  right: -100vw;
+  height: 1px;
+  background: var(--line);
+  pointer-events: none;
+}
+.rule-t::before {
+  top: 0;
+}
+.rule-b::after {
+  bottom: 0;
+}
+
+.hatch {
+  height: 36px;
+  background-image: repeating-linear-gradient(-45deg, var(--hatch) 0 1px, transparent 1px 8px);
+}
+
+.link {
+  text-decoration: underline;
+  text-decoration-color: var(--faint);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s;
+}
+.link:hover {
+  text-decoration-color: var(--ink);
+}
+
+.marker {
+  background: linear-gradient(transparent 58%, color-mix(in oklab, var(--amber) 38%, transparent) 58% 92%, transparent 92%);
+  padding: 0 2px;
+}
+
+/* theme switch reveal */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,919 @@
+:root {
+  --nz-chassis: #d6d7d1;
+  --nz-face: #ecece7;
+  --nz-face-2: #f6f6f2;
+  --nz-ink: #151515;
+  --nz-muted: #66665f;
+  --nz-edge: #b9bab3;
+  --nz-yellow: #ffcf1a;
+  --nz-cobalt: #2440ff;
+  --nz-lcd: #22201a;
+  --nz-lcd-ink: #ffcf1a;
+  --nz-r: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--nz-chassis);
+  color: var(--nz-ink);
+  font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.nz-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+:focus-visible {
+  outline: 2px solid var(--nz-cobalt);
+  outline-offset: 3px;
+}
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* ---------- lock screen ---------- */
+
+.nz-lock {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 4px;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(255, 207, 26, 0.12) 1px, transparent 1.5px) 0 0 / 10px 10px,
+    var(--nz-lcd);
+  color: var(--nz-lcd-ink);
+  cursor: pointer;
+  transition:
+    transform 0.52s cubic-bezier(0.7, 0, 0.3, 1),
+    opacity 0.52s;
+}
+.nz-lock.is-leaving {
+  transform: translateY(-100%);
+}
+.nz-lock p {
+  margin: 0;
+}
+.nz-lock-brand {
+  font: 700 22px/1 'Doto', monospace;
+  letter-spacing: 0.08em;
+}
+.nz-lock-time {
+  font: 900 clamp(96px, 22vw, 260px) / 0.9 'Doto', monospace;
+  text-shadow: 0 0 40px rgba(255, 207, 26, 0.35);
+}
+.nz-lock-date {
+  font-size: 18px;
+  color: #d8cfae;
+}
+.nz-lock-hint {
+  margin-top: 40px !important;
+  font-size: 14px;
+  color: #9c9479;
+  animation: nz-pulse 2.2s ease-in-out infinite;
+}
+@keyframes nz-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* ---------- home ---------- */
+
+.nz-root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 20px;
+  animation: nz-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes nz-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+.nz-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 14px 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.nz-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 800 18px/1 'Doto', monospace;
+}
+.nz-bar-mid {
+  color: var(--nz-muted);
+  font-weight: 500;
+}
+.nz-bar-time {
+  font-variant-numeric: tabular-nums;
+}
+.nz-secs {
+  color: var(--nz-muted);
+}
+.nz-led {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff3b1f;
+  box-shadow: 0 0 0 2px rgba(255, 59, 31, 0.2), 0 0 10px #ff3b1f;
+  animation: nz-pulse 1.6s ease-in-out infinite;
+}
+
+.nz-home {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(150px, auto);
+  grid-template-areas:
+    'clock clock proj proj'
+    'hello now proj proj'
+    'research stack stat contact';
+  gap: 14px;
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* a widget is a module screwed onto the chassis */
+.nz-w {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+  padding: 18px 20px;
+  border: 0;
+  border-radius: var(--nz-r);
+  background: linear-gradient(180deg, var(--nz-face-2), var(--nz-face));
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -2px 0 rgba(0, 0, 0, 0.06),
+    0 1px 0 var(--nz-edge),
+    0 14px 28px -18px rgba(40, 40, 30, 0.45);
+  text-align: left;
+}
+.nz-w::before,
+.nz-w::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff, #a9aaa3);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+.nz-w::before {
+  right: 24px;
+}
+.nz-w::after {
+  right: 12px;
+}
+button.nz-w {
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+button.nz-w:hover {
+  transform: translateY(-2px);
+}
+button.nz-w:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.1),
+    0 1px 0 var(--nz-edge);
+}
+.nz-w-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--nz-muted);
+}
+.nz-count {
+  padding: 1px 7px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.06);
+  font-variant-numeric: tabular-nums;
+}
+.nz-w-text {
+  color: var(--nz-muted);
+  font-size: 14px;
+}
+.nz-w-big {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+.nz-w-foot {
+  margin: auto 0 0;
+  font-size: 13px;
+  color: var(--nz-muted);
+}
+.nz-w-go {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  width: 20px;
+  height: 20px;
+}
+.nz-hello {
+  margin-top: auto;
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.nz-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--nz-ink);
+  font-weight: 600;
+}
+
+/* clock: an LCD panel */
+.nz-w--clock {
+  grid-area: clock;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(255, 207, 26, 0.1) 1px, transparent 1.5px) 0 0 / 8px 8px,
+    var(--nz-lcd);
+  color: var(--nz-lcd-ink);
+  box-shadow:
+    inset 0 0 0 6px #33302a,
+    inset 0 8px 24px rgba(0, 0, 0, 0.5),
+    0 14px 28px -18px rgba(40, 40, 30, 0.6);
+}
+.nz-w--clock::before,
+.nz-w--clock::after {
+  display: none;
+}
+.nz-w--clock .nz-w-foot {
+  margin: 0;
+  color: #b3a987;
+}
+.nz-lcd {
+  margin: 0;
+  font: 900 clamp(64px, 9vw, 116px) / 0.9 'Doto', monospace;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 24px rgba(255, 207, 26, 0.35);
+}
+.nz-lcd span {
+  margin-left: 8px;
+  font-size: 0.4em;
+  opacity: 0.6;
+}
+.nz-lcd--sm {
+  font-size: 72px;
+  color: var(--nz-ink);
+  text-shadow: none;
+}
+
+.nz-w--hello {
+  grid-area: hello;
+  padding-right: 44px;
+}
+.nz-w--now {
+  grid-area: now;
+}
+.nz-w--research {
+  grid-area: research;
+}
+.nz-w--stack {
+  grid-area: stack;
+}
+.nz-w--stat {
+  grid-area: stat;
+  justify-content: flex-end;
+}
+.nz-w--contact {
+  grid-area: contact;
+  background: var(--nz-yellow);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.1),
+    0 14px 28px -18px rgba(120, 90, 0, 0.6);
+}
+.nz-w--contact .nz-w-label,
+.nz-w--contact .nz-w-text {
+  color: #4d3d00;
+}
+
+.nz-w--projects {
+  grid-area: proj;
+  background: var(--nz-cobalt);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.2),
+    0 18px 34px -18px rgba(20, 30, 140, 0.7);
+}
+.nz-w--projects .nz-w-label,
+.nz-w--projects .nz-w-text {
+  color: rgba(255, 255, 255, 0.75);
+}
+.nz-w--projects .nz-count {
+  background: rgba(255, 255, 255, 0.16);
+}
+.nz-screen {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 200px;
+  margin: 6px 0 8px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0f1a8a;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+.nz-screen img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 0.7s,
+    transform 3.8s linear;
+}
+.nz-screen img.is-on {
+  opacity: 1;
+  transform: scale(1);
+}
+.nz-proj-name {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.nz-dots {
+  display: flex;
+  gap: 5px;
+  margin-top: 6px;
+}
+.nz-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.35);
+  transition: width 0.3s;
+}
+.nz-dots i.is-on {
+  width: 18px;
+  background: #fff;
+}
+
+.nz-icons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px 16px;
+  margin-top: auto;
+  font-size: 26px;
+  color: #3a3a35;
+}
+
+/* ---------- hardware keys ---------- */
+
+.nz-keys {
+  position: sticky;
+  bottom: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 18px auto 0;
+  padding: 10px;
+  border-radius: 20px;
+  background: #c4c5bf;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.15),
+    0 1px 0 #fff;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nz-hwkey {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  width: 76px;
+  height: 64px;
+  flex: none;
+  padding: 8px 4px 6px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fbfbf8, #e6e6e0);
+  box-shadow:
+    0 4px 0 #a3a49d,
+    0 6px 10px -4px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 #fff;
+  cursor: pointer;
+  transition:
+    transform 0.08s,
+    box-shadow 0.08s;
+}
+.nz-hwkey svg {
+  width: 18px;
+  height: 18px;
+}
+.nz-hwkey:active,
+.nz-hwkey[aria-pressed='true'] {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 #a3a49d,
+    0 2px 4px -2px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 #fff;
+}
+.nz-hwkey[aria-pressed='true'] .nz-hwkey-n {
+  background: #ff3b1f;
+  color: #fff;
+}
+.nz-hwkey-n {
+  position: absolute;
+  top: 5px;
+  left: 6px;
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.07);
+  font-size: 10px;
+  font-weight: 700;
+}
+.nz-hwkey-t {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ---------- app sheet ---------- */
+
+.nz-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: end center;
+  padding: 20px 20px 0;
+  background: rgba(34, 32, 26, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: nz-fade 0.2s;
+}
+@keyframes nz-fade {
+  from {
+    opacity: 0;
+  }
+}
+.nz-sheet {
+  display: flex;
+  flex-direction: column;
+  width: min(880px, 100%);
+  height: min(86svh, 820px);
+  border-radius: 26px 26px 0 0;
+  background: var(--nz-face-2);
+  box-shadow: 0 -20px 60px -20px rgba(0, 0, 0, 0.4);
+  animation: nz-up 0.38s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+@keyframes nz-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+.nz-sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid #deded8;
+}
+.nz-sheet-head h2 {
+  margin: 0;
+  font: 800 28px/1 'Doto', monospace;
+}
+.nz-close {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fbfbf8, #e6e6e0);
+  box-shadow:
+    0 3px 0 #a3a49d,
+    inset 0 1px 0 #fff;
+  cursor: pointer;
+}
+.nz-close:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #a3a49d;
+}
+.nz-sheet-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 22px 40px;
+}
+.nz-sheet-body p {
+  margin: 0 0 12px;
+  max-width: 68ch;
+}
+.nz-sheet-body h3 {
+  margin: 4px 0 8px;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.nz-lead {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.nz-muted {
+  color: var(--nz-muted);
+}
+.nz-small {
+  font-size: 13px;
+}
+.nz-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--nz-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+.nz-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0;
+}
+.nz-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fff, #ecece6);
+  box-shadow:
+    0 3px 0 #b3b4ad,
+    inset 0 1px 0 #fff;
+  color: var(--nz-ink);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.nz-key:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #b3b4ad;
+}
+.nz-key--accent {
+  background: var(--nz-yellow);
+  box-shadow:
+    0 3px 0 #c49c00,
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.nz-key--wide {
+  margin-top: 8px;
+}
+
+.nz-spec {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 20px 0;
+}
+.nz-spec div {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--nz-face);
+}
+.nz-spec dt {
+  font-size: 12px;
+  color: var(--nz-muted);
+}
+.nz-spec dd {
+  margin: 2px 0 0;
+  font-weight: 700;
+}
+
+.nz-seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.nz-seg button {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--nz-face);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.nz-seg button[aria-pressed='true'] {
+  background: var(--nz-ink);
+  color: #fff;
+}
+.nz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nz-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+.nz-tile-img {
+  display: block;
+  aspect-ratio: 16 / 10;
+  margin-bottom: 8px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--nz-face);
+}
+.nz-tile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.3s;
+}
+.nz-tile:hover img {
+  transform: scale(1.04);
+}
+.nz-tile-name {
+  font-weight: 700;
+}
+.nz-tile-line {
+  color: var(--nz-muted);
+  font-size: 13px;
+}
+.nz-foot {
+  margin-top: 20px !important;
+  color: var(--nz-muted);
+  font-size: 13px;
+}
+
+.nz-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+.nz-shot {
+  display: block;
+  width: 100%;
+  margin-bottom: 16px;
+  border-radius: 16px;
+}
+.nz-list {
+  margin: 0 0 14px;
+  padding-left: 20px;
+}
+.nz-list li {
+  margin-bottom: 4px;
+}
+.nz-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0;
+}
+.nz-stats div {
+  display: grid;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--nz-lcd);
+  color: var(--nz-lcd-ink);
+}
+.nz-stats b {
+  font: 900 32px/1 'Doto', monospace;
+}
+.nz-stats span {
+  color: #d8cfae;
+  font-size: 13px;
+}
+.nz-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.nz-tags span {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--nz-face);
+  font-size: 13px;
+}
+
+.nz-timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nz-timeline > li {
+  position: relative;
+  padding: 0 0 20px 24px;
+  border-left: 2px solid #d6d7d1;
+}
+.nz-timeline > li::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--nz-face-2);
+  border: 2px solid var(--nz-ink);
+}
+.nz-timeline > li.is-now::before {
+  background: var(--nz-yellow);
+}
+.nz-timeline p {
+  margin-bottom: 4px;
+}
+.nz-role {
+  font-weight: 700;
+}
+.nz-role .nz-muted {
+  font-weight: 500;
+}
+
+.nz-stack section + section {
+  margin-top: 20px;
+}
+.nz-stack h3 {
+  font-size: 18px !important;
+}
+.nz-stack ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nz-stack li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--nz-face);
+  font-size: 14px;
+  font-weight: 600;
+}
+.nz-stack svg {
+  width: 18px;
+  height: 18px;
+}
+
+.nz-mail {
+  display: grid;
+  gap: 12px;
+}
+.nz-mail label {
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--nz-muted);
+}
+.nz-mail input,
+.nz-mail textarea {
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--nz-face);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  color: var(--nz-ink);
+  font: inherit;
+  font-size: 15px;
+  resize: vertical;
+}
+
+.nz-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 110px;
+  z-index: 60;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--nz-lcd);
+  color: var(--nz-lcd-ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 860px) {
+  .nz-root {
+    padding: 0 12px 160px;
+  }
+  .nz-bar-mid {
+    display: none;
+  }
+  .nz-home {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(140px, auto);
+    grid-template-areas:
+      'clock clock'
+      'proj proj'
+      'hello hello'
+      'now research'
+      'stack stat'
+      'contact contact';
+    gap: 10px;
+  }
+  .nz-screen {
+    min-height: 180px;
+  }
+  .nz-keys {
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    bottom: 60px;
+    width: auto;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px;
+  }
+  .nz-hwkey {
+    width: 64px;
+    height: 56px;
+  }
+  .nz-scrim {
+    padding: 12px 0 0;
+  }
+  .nz-sheet {
+    height: 92svh;
+  }
+  .nz-spec {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
